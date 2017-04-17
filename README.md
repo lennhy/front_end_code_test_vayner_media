@@ -6,12 +6,13 @@ Stuff you’ll need
 jQuery               => http://jquery.com/download/
 Mock-API docs => https://jsonplaceholder.typicode.com/
 
-Don’t use any packages or add-ons besides jQuery for any part of this challenge. You are welcome to write in vanilla JavaScript without jQuery, but it isn’t recommended. Anything supported by Chrome is acceptable JavaScript.
+~~Don’t use any packages or add-ons besides jQuery for any part of this challenge. You are welcome to write in vanilla JavaScript without jQuery, but it isn’t recommended. Anything supported by Chrome is acceptable JavaScript.
 
-Your submission should be a single zip file, and include an html, js, and css file (and also a file for the jQuery package, if you use it). I should be able to unzip the file, then drag the html into a Chrome window, and see your work in action.
+Your submission should be a single zip file, and include an html, js, and css file (and also a file for the jQuery package, if you use it). I should be able to unzip the file, then drag the html into a Chrome window, and see your work in action.~~
 
 Step 1 - Request
 GET USERS with id 1 and 2 from the mock-API. Also GET ALBUMS associated with these two USERS.
+
 Step 2 - Display
 Represent both USERS in two tables. Both tables should have the name of the USER above it, and each row in both tables should represent an ALBUM that belongs to each USER, and each column should represent a property of the ALBUM (Id and Title). No <table> tags please!
 
