@@ -6,9 +6,9 @@ Stuff you’ll need
 jQuery               => http://jquery.com/download/
 Mock-API docs => https://jsonplaceholder.typicode.com/
 
-~~Don’t use any packages or add-ons besides jQuery for any part of this challenge. You are welcome to write in vanilla JavaScript without jQuery, but it isn’t recommended. Anything supported by Chrome is acceptable JavaScript.
+Don’t use any packages or add-ons besides jQuery for any part of this challenge. You are welcome to write in vanilla JavaScript without jQuery, but it isn’t recommended. Anything supported by Chrome is acceptable JavaScript.
 
-Your submission should be a single zip file, and include an html, js, and css file (and also a file for the jQuery package, if you use it). I should be able to unzip the file, then drag the html into a Chrome window, and see your work in action.~~
+Your submission should be a single zip file, and include an html, js, and css file (and also a file for the jQuery package, if you use it). I should be able to unzip the file, then drag the html into a Chrome window, and see your work in action.
 
 Step 1 - Request
 GET USERS with id 1 and 2 from the mock-API. Also GET ALBUMS associated with these two USERS.
