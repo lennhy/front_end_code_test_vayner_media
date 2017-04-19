@@ -1,6 +1,5 @@
 "use strict";
-// Note 'var' is supported in all broswers
-// But the ES6 'let' key word is not supported in firefox so I chose to use var instead of let
+// Note I chose to use the keyword 'var' instead of ES6 'let' because var is better suported in all broswers
 
 // Get users with id 1 and 2 from the mock-API. Also GET ALBUMS associated with these two USERS.
 const api = "https://jsonplaceholder.typicode.com"
@@ -29,7 +28,7 @@ $(document).ready(function(){
         })
       })
       .fail(function() {
-        alert( "error" );
+        console.log( "error" );
       });
       // callbacks
       getUser(user, 1, user1Albums);
@@ -46,18 +45,44 @@ $(document).ready(function(){
          $('.container').append(name);
          for(var i=0; i < userAlbums.length; i++){
            $('.container').append(
-             '<div class="user-table">'+
-               '<ul class="album-row">'+
+             '<div class="user-table" ondrop="drop(event)" ondragover="allowDrop(event)">'+
+               `<ul id="album-row-${userAlbums[i].id}"` + " "+  'draggable="true">'+
                  '<li class="id-column"> album Id: '+userAlbums[i].id+'</li>'+
                 ' <li class="title-column"> album Title: '+userAlbums[i].title+'</li>'+
               '</ul>'+
              '</div>'
            )
-        }
+           eventStart(`#album-row-${userAlbums[i].id}`);
+
+         }
        })
        .fail(function() {
-         alert( "error" );
+         console.log( "error" );
        });
-  }
+     }
+
+      // Drag and drop functionality
+    //  function allowDrop(ev) {
+    //     ev.preventDefault();
+    //  }
+    function eventStart(divId){
+      console.log(divId);
+      var row = document.querySelector(divId);
+      row.addEventListener("drag", function(){
+        console.log("yoo");
+      });
+    }
+     function drag(ev) {
+       console.log(ev.target.id);
+        ev.dataTransfer.setData("text", ev.target.id);
+
+     }
+
+     function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        console.log(data);
+        ev.target.appendChild(document.getElementById(data));
+     }
 
 });
