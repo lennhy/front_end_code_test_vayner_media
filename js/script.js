@@ -7,8 +7,11 @@ const albums = api+"/albums";
 const user = api+"/users?id=";
 var id;
 
+// Make sure document has completely loaded before running code
 $(document).ready(function(){
     getAlbums();
+
+
 
     // ---------------------------------- GET DATA
 
@@ -34,15 +37,19 @@ $(document).ready(function(){
         console.log( "error" );
       });
       // callbacks
-      getUser(user, 1, user1Albums);
-      getUser(user, 2, user2Albums);
+      getUpdateUser(user, 1, user1Albums);
+      getUpdateUser(user, 2, user2Albums);
     }
 
+
+
+
     // Get single user getAlbumslbums
-    function getUser(user,id, userAlbums) {
+    function getUpdateUser(user,id, userAlbums) {
       var albumId;
       var userId;
       var title;
+      var counter =1;
 
       // The data will return only when all the object values are returned for each promise.
       // Get request 2
@@ -51,11 +58,12 @@ $(document).ready(function(){
        .done(function(albumObj) {
          var name = '<div class="user-name">user name: '+albumObj[0].name+'</div>';
          $(`.user-table-${id}`).append(name);
-         for(var i=0; i < userAlbums.length; i++){
+         for(var i=0; i < userAlbums.length; i++, counter++){
+
            if(id===1){
              $('.user-table-1').append(
                  `<ul id="album-row-${userAlbums[i].id}"` + " "+  'draggable="true">'+
-                   '<li class="id-column"> album Id: '+userAlbums[i].id+'</li>'+
+                   '<li class=" id-column"> album Id: '+userAlbums[i].id+'</li>'+
                   ' <li class="title-column"> album Title: '+userAlbums[i].title+'</li>'+
                 '</ul>'
              )
@@ -68,6 +76,14 @@ $(document).ready(function(){
                 '</ul>'
              )
            }
+           //  If row is even then make background of row candy striped
+           if (counter % 2 === 0) {
+             $(`#album-row-${userAlbums[i].id}`).addClass("candy-striped");
+           }
+           //  If row is odd then make background of row candy striped
+           if (counter % 2 !== 0) {
+             $(`#album-row-${userAlbums[i].id}`).addClass("red");
+           }
          }
        })
        .fail(function() {
@@ -76,20 +92,24 @@ $(document).ready(function(){
 
        // -------------------------------------------- DRAG AND DROP FUNCTIONALITY
 
+       //  Start dragging row
        document.addEventListener("dragstart", function(event) {
            event.dataTransfer.setData("Text", event.target.id);
        });
 
+        //  Dragover row
         document.addEventListener("dragover", function(event) {
            event.preventDefault();
         });
 
+        //  Drag row
         document.addEventListener("drag", function(event){
            event.dataTransfer.setData("text", event.target.id);
            albumId = event.target.id.slice(10,12);
            title = event.target.children[1].innerHTML;
         });
 
+        //  Drop row in table
         document.addEventListener("drop", function(event) {
            event.preventDefault();
            var dropContainer = $(event.target);
@@ -97,6 +117,7 @@ $(document).ready(function(){
              userId  = event.target.className.slice(11,12);
              var albumToTransfer = event.dataTransfer.getData("text");
 
+             //  Ajax Update
              // Update the user id of the album
              $.ajax({
                  type: "PUT",
@@ -112,7 +133,7 @@ $(document).ready(function(){
                    $(document.getElementById(albumToTransfer)).remove();
                    // After request resolves the album data returned from the promise will be appended to the new user's table
                    dropContainer.append(
-                     `<ul id="${album.id}" `+  'draggable="true">'+
+                     `<ul id="album-row-${album.id}" `+  'draggable="true">'+
                        '<li class="id-column"> album Id: '+ album.id+'</li>'+
                       ' <li class="title-column"> album Title: '+album.title+'</li>'+
                     '</ul>'

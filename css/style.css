@@ -1,8 +1,42 @@
-.container{
-  border: 2px solid #333;
+body{
+  width: 100%;
 }
+.container{
+  width: 100%;
+  display: flex;
+  color: #EE6363;
+}
+
 .user-table-1, .user-table-2{
-  border: 2px solid #333;
-  padding: 60px;
+  border: 2px solid #EE6363;
+  border-radius: 10px;
+  padding: 100px;
   margin: 20px;
+}
+
+ul[id^=album-row] {
+  width: 100%;
+  overflow: scroll;
+  padding: 5px;
+  border-radius: 10px;
+  border: 2px solid #EE6363;
+}
+.candy-striped{
+  background: repeating-linear-gradient(
+    45deg,
+    #EE6363,
+    #EE6363 10px,
+    #fff 10px,
+    #fff 20px
+  );
+}
+li{
+  background: #fff;
+  padding: 5px;
+  list-style: none;
+
+}
+.red{
+  background: #EE6363;
+
 }
