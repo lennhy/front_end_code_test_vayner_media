@@ -10,6 +10,8 @@ var id;
 $(document).ready(function(){
     getAlbums();
 
+    // ---------------------------------- GET DATA
+
     function getAlbums(){
       var user1Albums=[];
       var user2Albums=[];
@@ -35,7 +37,7 @@ $(document).ready(function(){
       getUser(user, 2, user2Albums);
     }
 
-    // Get single user agetAlbumslbums
+    // Get single user getAlbumslbums
     function getUser(user,id, userAlbums) {
       // The data will return only when all the object values are returned for each promise.
        $.get( user+id, function(data) {
@@ -45,15 +47,13 @@ $(document).ready(function(){
          $('.container').append(name);
          for(var i=0; i < userAlbums.length; i++){
            $('.container').append(
-             '<div class="user-table" ondrop="drop(event)" ondragover="allowDrop(event)">'+
+             '<div class="user-table">'+
                `<ul id="album-row-${userAlbums[i].id}"` + " "+  'draggable="true">'+
                  '<li class="id-column"> album Id: '+userAlbums[i].id+'</li>'+
                 ' <li class="title-column"> album Title: '+userAlbums[i].title+'</li>'+
               '</ul>'+
              '</div>'
            )
-           eventStart(`#album-row-${userAlbums[i].id}`);
-
          }
        })
        .fail(function() {
@@ -61,28 +61,33 @@ $(document).ready(function(){
        });
      }
 
-      // Drag and drop functionality
-    //  function allowDrop(ev) {
-    //     ev.preventDefault();
-    //  }
-    function eventStart(divId){
-      console.log(divId);
-      var row = document.querySelector(divId);
-      row.addEventListener("drag", function(){
-        console.log("yoo");
+      // -------------------------------------------- DRAG AND DROP FUNCTIONALITY
+
+      document.addEventListener("dragstart", function(event) {
+          console.log("dragstart");
+          event.dataTransfer.setData("Text", event.target.id);
       });
-    }
-     function drag(ev) {
-       console.log(ev.target.id);
-        ev.dataTransfer.setData("text", ev.target.id);
 
-     }
+       document.addEventListener("dragover", function(event) {
+          console.log("dragover");
+          event.preventDefault();
+       });
 
-     function drop(ev) {
-        ev.preventDefault();
-        var data = ev.dataTransfer.getData("text");
-        console.log(data);
-        ev.target.appendChild(document.getElementById(data));
-     }
+       document.addEventListener("drag", function(event){
+          event.dataTransfer.setData("text", event.target.id);
+       });
+
+       document.addEventListener("drop", function(event) {
+          event.preventDefault();
+          console.log("drop");
+          console.log(event.target.className);
+
+          if ( event.target.className == "user-table" ) {
+              var data = event.dataTransfer.getData("Text");
+              console.log(data);
+              event.target.appendChild(document.getElementById(data));
+          }
+       });
+
 
 });
