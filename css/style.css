@@ -1,7 +1,7 @@
 .container{
   border: 2px solid #333;
 }
-.user-table{
+.user-table-1, .user-table-2{
   border: 2px solid #333;
   padding: 60px;
   margin: 20px;
